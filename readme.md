@@ -66,48 +66,48 @@ python snippet_manager2.py history --top 10
     ┌──────────────┐          ┌─────────────────────────────────┐
     │  languages   │          │            snippets             │
     ├──────────────┤          ├─────────────────────────────────┤
-    │ id (PK)     │◄─────────│ id (PK)                         │
-    │ name (UNIQUE)          │ title                           │
+    │ id (PK)      │◄──────── │ id (PK)                         │
+    │ name (UNIQUE)           │ title                           │
     └──────────────┘          │ description                     │
-                               │ code                            │
-                               │ language_id (FK → languages.id)│
-                               │ created_at                     │
-                               │ updated_at                     │
-                               └─────────────────────────────────┘
+                              │ code                            │
+                              │ language_id (FK → languages.id) │
+                              │ created_at                      │
+                              │ updated_at                      │
+                              └─────────────────────────────────┘
                                               │
                                               │ (one-to-many via snippet_tags)
                                               ▼
                                ┌─────────────────────────────────┐
-                               │          snippet_tags            │
+                               │          snippet_tags           │
                                ├─────────────────────────────────┤
                                │ snippet_id (FK → snippets.id)   │
-                               │ tag_id (FK → tags.id)          │
+                               │ tag_id (FK → tags.id)           │
                                │ PRIMARY KEY (snippet_id, tag_id)│
                                └─────────────────────────────────┘
                                               │
                                               ▼
                                ┌─────────────────────────────────┐
-                               │              tags                │
+                               │              tags               │
                                ├─────────────────────────────────┤
                                │ id (PK)                         │
                                │ name (UNIQUE)                   │
                                └─────────────────────────────────┘
 
     ┌─────────────────────────────────────────────────────────────────┐
-    │                    search_history                                 │
+    │                    search_history                               │
     ├─────────────────────────────────────────────────────────────────┤
-    │ id (PK)                                                      │
-    │ query (TEXT)                                                 │
-    │ result_count                                                 │
-    │ created_at                                                  │
+    │ id (PK)                                                         │
+    │ query (TEXT)                                                    │
+    │ result_count                                                    │
+    │ created_at                                                      │
     └─────────────────────────────────────────────────────────────────┘
 
     ┌─────────────────────────────────────────────────────────────┐
     │                      snippets_fts (FTS5)                    │
     ├─────────────────────────────────────────────────────────────┤
-    │ virtual table synced by triggers:                             │
+    │ virtual table synced by triggers:                           │
     │ - rowid (maps to snippets.id)                               │
-    │ - title, description, code (search fields)                │
+    │ - title, description, code (search fields)                  │
     │ tokenize = unicode61 (Russian support, case-insensitive)    │
     └─────────────────────────────────────────────────────────────┘
 ```
